@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
+import GameBoard from './GameBoard';
+import { BOARD_SIZE } from './constants';
+import './index.css';
 
 class App extends Component {
   render() {
@@ -12,9 +14,7 @@ class App extends Component {
             </span>
           </h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <GameBoard boardSize={BOARD_SIZE} />
       </div>
     );
   }
