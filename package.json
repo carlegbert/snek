@@ -1,0 +1,32 @@
+{
+  "name": "snek",
+  "version": "0.1.0",
+  "dependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-scripts": "1.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlegbert/snek.git"
+  },
+  "keywords": [
+    "react",
+    "game",
+    "snake",
+    "snek",
+    "🐍"
+  ],
+  "author": "Carl Egbert <egbertcarl@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/carlegbert/snek/issues"
+  },
+  "homepage": "https://github.com/carlegbert/snek#readme",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
