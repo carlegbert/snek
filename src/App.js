@@ -6,9 +6,9 @@ import './index.css';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">
+      <div className="app">
+        <header className="header">
+          <h1 className="title">
             <span role="img" aria-label="snake">
               🐍
             </span>

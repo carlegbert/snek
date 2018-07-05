@@ -1,16 +1,37 @@
+body {
+  background-color: #bfb;
+  color: #004e11;
+}
+
+.title {
+  text-align: center;
+}
+
 .game-square {
-  height: 50px;
-  width: 50px;
+  height: 100%;
+  width: 5%;
   display: inline-block;
-  background-color: #fff;
-  border-color: #000;
-  border-style: solid;
-  border-width: 5px;
-  margin: 0px;
   padding: 0px;
+  margin: 0px;
 }
 
 .game-row {
+  height: 5%;
+  width: 100%;
   padding: 0px;
   margin: 0px;
+}
+
+.game-board {
+  width: 85vmin;
+  height: 85vmin;
+  padding: 0px;
+  margin: 0px;
+  background-color: #fff;
+}
+
+.board-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

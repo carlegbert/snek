@@ -17,8 +17,10 @@ export default class GameBoard extends Component {
 
   render() {
     return (
-      <div className="game-board">
-        {this.renderRows()}
+      <div className="board-wrapper">
+        <div className="game-board">
+          {this.renderRows()}
+        </div>
       </div>
     )
   }
