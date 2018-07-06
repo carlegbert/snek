@@ -27,11 +27,11 @@ class App extends Component {
       boardSize: BOARD_SIZE,
       started: false,
       score: null,
-      speed: null,
       board: null,
-      direction: null,
-      snake: null,
     };
+    this.speed = null;
+    this.direction = null;
+    this.snake = null;
     this.newDirection = null;
   }
 
@@ -79,49 +79,49 @@ class App extends Component {
     const food = getRandomEmptyLocation(board);
     board[food.y][food.x] = FOOD;
     const score = 0;
-    const speed = calculateSpeed(score);
+    this.speed = calculateSpeed(score);
+    this.snake = [{x: center, y: center}];
+    this.direction = getRandomDirection();
 
     this.setState({
+      score,
       board,
-      speed,
       started: true,
-      direction: getRandomDirection(),
-      snake: [{x: center, y: center}],
     });
-    this.updateClock(speed);
+    this.updateClock();
   }
 
-  updateClock(speed) {
+  updateClock() {
     clearInterval(this.intervalHandle);
     setTimeout(() => {
-      this.intervalHandle = setInterval(this.moveSnake.bind(this), speed);
-    }, speed);
+      this.intervalHandle = setInterval(this.moveSnake.bind(this), this.speed);
+    }, this.speed);
   }
 
   moveSnake() {
-    const snake = this.state.snake.slice();
     const board = this.state.board.map(row => row.map(square => square));
-    const direction = this.newDirection || this.state.direction;
-    const newState = { snake, board, direction, newDirection: null };
-    const newSnakeHead = movePoint(snake[0], direction);
+    this.direction = this.newDirection || this.direction;
+    this.newDirection = null;
+    const newState = { board };
+    const newSnakeHead = movePoint(this.snake[0], this.direction);
 
     if (board[newSnakeHead.y][newSnakeHead.x] === FOOD) {
       newState.score = this.state.score + 1;
-      newState.speed = calculateSpeed(newState.score);
+      this.speed = calculateSpeed(newState.score);
       this.updateClock(newState.speed);
       const food = getRandomEmptyLocation(board);
       board[food.y][food.x] = FOOD;
     } else {
-      const oldSnakeTail = snake.pop();
+      const oldSnakeTail = this.snake.pop();
       board[oldSnakeTail.y][oldSnakeTail.x] = EMPTY;
     }
-    snake.splice(0, 0, newSnakeHead);
+    this.snake.splice(0, 0, newSnakeHead);
     board[newSnakeHead.y][newSnakeHead.x] = SNAKE;
     this.setState(newState);
   }
 
   changeSnakeDirection(newDirection) {
-    if (this.state.direction === newDirection || directionsAreOpposite(this.state.direction, newDirection))
+    if (this.direction === newDirection || directionsAreOpposite(this.direction, newDirection))
       return;
     this.newDirection = newDirection;
   }
