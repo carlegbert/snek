@@ -20,7 +20,8 @@ class App extends Component {
       started: false,
       score: 0,
       board: null,
-      snakeDirection: null,
+      direction: null,
+      newDirection: null,
       snake: null,
     };
   }
@@ -72,8 +73,8 @@ class App extends Component {
     this.setState({
       board,
       started: true,
-      snakeDirection: getRandomDirection(),
-      snakeSpeed: 1000,
+      direction: getRandomDirection(),
+      snakeSpeed: 100,
       snake: [{x: center, y: center}],
     });
     this.startSnake();
@@ -88,8 +89,9 @@ class App extends Component {
   moveSnake() {
     const snake = this.state.snake.slice();
     const board = this.state.board.map(row => row.map(square => square));
-    const newState = { snake, board };
-    const newSnakeHead = movePoint(snake[0], this.state.snakeDirection);
+    const direction = this.state.newDirection || this.state.direction;
+    const newState = { snake, board, direction, newDirection: null };
+    const newSnakeHead = movePoint(snake[0], direction);
 
     if (board[newSnakeHead.y][newSnakeHead.x] === FOOD) {
       newState.score = this.state.score + 1;
@@ -104,10 +106,10 @@ class App extends Component {
     this.setState(newState);
   }
 
-  changeSnakeDirection(direction) {
-    if (this.state.snakeDirection === direction || directionsAreOpposite(this.state.snakeDirection, direction))
+  changeSnakeDirection(newDirection) {
+    if (this.state.direction === newDirection || directionsAreOpposite(this.state.direction, newDirection))
       return;
-    this.setState({ snakeDirection: direction });
+    this.setState({ newDirection });
   }
 
   render() {
