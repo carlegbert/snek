@@ -6,16 +6,18 @@ import {
   DIRECTIONS,
   EMPTY,
   FOOD,
+  GAME_MODES,
   KEYS,
   SNAKE,
 } from './constants';
 import {
+  calculateSpeed,
   createBoard,
   directionsAreOpposite,
   getRandomDirection,
   getRandomEmptyLocation,
   movePoint,
-  calculateSpeed,
+  newSpaceIsValid,
 } from './util';
 
 import './index.css';
@@ -25,7 +27,7 @@ class App extends Component {
     super();
     this.state = {
       boardSize: BOARD_SIZE,
-      started: false,
+      gameMode: GAME_MODES.UNSTARTED,
       score: null,
       board: null,
     };
@@ -36,7 +38,7 @@ class App extends Component {
   }
 
   handleKeyDown(e) {
-    if (this.state.started)
+    if (this.state.gameMode === GAME_MODES.STARTED)
       this.handleGameStartedKeyDown(e);
     else
       this.handleGameStoppedKeyDown(e);
@@ -86,7 +88,7 @@ class App extends Component {
     this.setState({
       score,
       board,
-      started: true,
+      gameMode: GAME_MODES.STARTED,
     });
     this.updateClock();
   }
@@ -105,18 +107,28 @@ class App extends Component {
     const newState = { board };
     const newSnakeHead = movePoint(this.snake[0], this.direction);
 
-    if (board[newSnakeHead.y][newSnakeHead.x] === FOOD) {
+    if (!newSpaceIsValid(newSnakeHead, board)) {
+      newState.gameMode = GAME_MODES.GAME_OVER;
+    } else if (board[newSnakeHead.y][newSnakeHead.x] === FOOD) {
       newState.score = this.state.score + 1;
-      this.speed = calculateSpeed(newState.score);
-      this.updateClock(newState.speed);
+      this.snake.splice(0, 0, newSnakeHead);
+      board[newSnakeHead.y][newSnakeHead.x] = SNAKE;
+
       const food = getRandomEmptyLocation(board);
-      board[food.y][food.x] = FOOD;
+      if (food) {
+        board[food.y][food.x] = FOOD;
+        this.speed = calculateSpeed(newState.score);
+        this.updateClock(newState.speed);
+      } else {
+        newState.gameMode = GAME_MODES.WON;
+        clearInterval(this.intervalHandle);
+      }
     } else {
       const oldSnakeTail = this.snake.pop();
       board[oldSnakeTail.y][oldSnakeTail.x] = EMPTY;
+      this.snake.splice(0, 0, newSnakeHead);
+      board[newSnakeHead.y][newSnakeHead.x] = SNAKE;
     }
-    this.snake.splice(0, 0, newSnakeHead);
-    board[newSnakeHead.y][newSnakeHead.x] = SNAKE;
     this.setState(newState);
   }
 
@@ -134,7 +146,7 @@ class App extends Component {
         tabIndex="0"
       >
         <GameHeader
-          started={this.state.started}
+          gameMode={this.state.gameMode}
           score={this.state.score}
         />
         <GameBoard
