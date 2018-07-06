@@ -39,3 +39,7 @@ body {
 .snake-tile {
   background-color: #0f0;
 }
+
+.food-tile {
+  background-color: #f00;
+}

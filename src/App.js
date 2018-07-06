@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import GameBoard from './GameBoard';
 import GameHeader from './GameHeader';
-import { BOARD_SIZE, DIRECTIONS, EMPTY, KEYS, SNAKE } from './constants';
-import { createBoard, directionsAreOpposite, getRandomDirection, movePoint } from './util';
+import { BOARD_SIZE, DIRECTIONS, EMPTY, FOOD, KEYS, SNAKE } from './constants';
+import {
+  createBoard,
+  directionsAreOpposite,
+  getRandomDirection,
+  getRandomEmptyLocation,
+  movePoint
+} from './util';
 
 import './index.css';
 
@@ -60,6 +66,8 @@ class App extends Component {
     const center = Math.floor(this.state.boardSize / 2);
     const board = createBoard(BOARD_SIZE);
     board[center][center] = SNAKE;
+    const food = getRandomEmptyLocation(board);
+    board[food.y][food.x] = FOOD;
 
     this.setState({
       board,

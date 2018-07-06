@@ -38,3 +38,22 @@ export const directionsAreOpposite = (directionOne, directionTwo) => {
     || (directionOne === DIRECTIONS.LEFT && directionTwo === DIRECTIONS.RIGHT)
     || (directionOne === DIRECTIONS.RIGHT && directionTwo === DIRECTIONS.LEFT));
 };
+
+export const getRandomEmptyLocation = board => {
+  const nonFullRows = board
+    .map((content, idx) => ({ content, idx }))
+    .filter(x => x.content.some(y => y === EMPTY));
+  // TODO: If all rows are full, you win; return null to signify?
+  const randY = Math.floor(Math.random() * nonFullRows.length);
+  const row = nonFullRows[randY];
+
+  const nonFullSquares = row.content
+    .map((content, idx) => ({ content, idx }))
+    .filter(x => x.content === EMPTY);
+  const randX = Math.floor(Math.random() * nonFullSquares.length);
+  const sq = nonFullSquares[randX];
+
+  const x = row.idx;
+  const y = sq.idx;
+  return { x, y };
+}
