@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import GameBoard from './GameBoard';
 import GameHeader from './GameHeader';
-import { BOARD_SIZE, EMPTY, KEYS, SNAKE } from './constants';
-import { createBoard, getRandomDirection, movePoint } from './util';
+import { BOARD_SIZE, DIRECTIONS, EMPTY, KEYS, SNAKE } from './constants';
+import { createBoard, directionsAreOpposite, getRandomDirection, movePoint } from './util';
 
 import './index.css';
 
@@ -34,7 +34,26 @@ class App extends Component {
   }
 
   handleGameStartedKeyDown(e) {
-    // stub
+    switch (e.which) {
+      case KEYS.UP:
+      case KEYS.K:
+        this.changeSnakeDirection(DIRECTIONS.UP);
+        break;
+      case KEYS.DOWN:
+      case KEYS.J:
+        this.changeSnakeDirection(DIRECTIONS.DOWN);
+        break;
+      case KEYS.LEFT:
+      case KEYS.H:
+        this.changeSnakeDirection(DIRECTIONS.LEFT);
+        break;
+      case KEYS.RIGHT:
+      case KEYS.L:
+        this.changeSnakeDirection(DIRECTIONS.RIGHT);
+        break;
+      default:
+        break;
+    }
   }
 
   startGame() {
@@ -66,6 +85,12 @@ class App extends Component {
     board[newSnakeHead.y][newSnakeHead.x] = SNAKE;
     board[oldSnakeTail.y][oldSnakeTail.x] = EMPTY;
     this.setState({ snake, board });
+  }
+
+  changeSnakeDirection(direction) {
+    if (this.state.snakeDirection === direction || directionsAreOpposite(this.state.snakeDirection, direction))
+      return;
+    this.setState({ snakeDirection: direction });
   }
 
   render() {

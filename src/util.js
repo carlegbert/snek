@@ -30,5 +30,11 @@ export const movePoint = (point, direction) => {
 export const getRandomDirection = () => {
   const idx = Math.floor(Math.random() * 4);
   return DIRECTIONS[Object.keys(DIRECTIONS)[idx]];
+};
 
+export const directionsAreOpposite = (directionOne, directionTwo) => {
+  return ((directionOne === DIRECTIONS.UP && directionTwo === DIRECTIONS.DOWN)
+    || (directionOne === DIRECTIONS.DOWN && directionTwo === DIRECTIONS.UP)
+    || (directionOne === DIRECTIONS.LEFT && directionTwo === DIRECTIONS.RIGHT)
+    || (directionOne === DIRECTIONS.RIGHT && directionTwo === DIRECTIONS.LEFT));
 };
