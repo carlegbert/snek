@@ -86,13 +86,22 @@ class App extends Component {
   }
 
   moveSnake() {
-    const newSnakeHead = movePoint(this.state.snake[0], this.state.snakeDirection);
-    const oldSnakeTail = this.state.snake.slice(-1)[0];
-    const snake = [newSnakeHead, ...this.state.snake.slice(0, -1)];
+    const snake = this.state.snake.slice();
     const board = this.state.board.map(row => row.map(square => square));
+    const newState = { snake, board };
+    const newSnakeHead = movePoint(snake[0], this.state.snakeDirection);
+
+    if (board[newSnakeHead.y][newSnakeHead.x] === FOOD) {
+      newState.score = this.state.score + 1;
+      const food = getRandomEmptyLocation(board);
+      board[food.y][food.x] = FOOD;
+    } else {
+      const oldSnakeTail = snake.pop();
+      board[oldSnakeTail.y][oldSnakeTail.x] = EMPTY;
+    }
+    snake.splice(0, 0, newSnakeHead);
     board[newSnakeHead.y][newSnakeHead.x] = SNAKE;
-    board[oldSnakeTail.y][oldSnakeTail.x] = EMPTY;
-    this.setState({ snake, board });
+    this.setState(newState);
   }
 
   changeSnakeDirection(direction) {
