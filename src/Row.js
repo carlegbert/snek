@@ -2,7 +2,7 @@ import React from 'react';
 import Square from './Square';
 
 const mapRowToSquares = row => row.map(
-  (square, i) => <Square key={i} />
+  (x, i) => <Square key={i} occupiedBy={x} />
 );
 
 const Row = props => (

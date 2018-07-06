@@ -2,20 +2,18 @@ import React, { Component } from 'react';
 import GameBoard from './GameBoard';
 import GameHeader from './GameHeader';
 import { BOARD_SIZE, KEYS } from './constants';
+import { createBoard } from './util';
 
 import './index.css';
 
 class App extends Component {
   constructor() {
     super();
-    const board = new Array(BOARD_SIZE)
-      .fill(null)
-      .map(() => new Array(BOARD_SIZE).fill(null));
     this.state = {
       boardSize: BOARD_SIZE,
       started: false,
       score: 0,
-      board,
+      board: null
     };
   }
 
@@ -31,7 +29,7 @@ class App extends Component {
   }
 
   startGame() {
-    this.setState({ started: true });
+    this.setState({ board: createBoard(BOARD_SIZE), started: true });
   }
 
   render() {

@@ -8,7 +8,7 @@ const mapBoardToRows = board => board.map(
 const GameBoard = props => (
   <div className="board-wrapper">
     <div className="game-board">
-      {mapBoardToRows(props.board)}
+      {props.board && mapBoardToRows(props.board)}
     </div>
   </div>
 );

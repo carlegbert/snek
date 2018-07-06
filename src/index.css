@@ -9,14 +9,14 @@ body {
 
 .game-square {
   height: 100%;
-  width: 5%;
+  width: 4%;
   display: inline-block;
   padding: 0px;
   margin: 0px;
 }
 
 .game-row {
-  height: 5%;
+  height: 4%;
   width: 100%;
   padding: 0px;
   margin: 0px;
@@ -34,4 +34,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.snake-tile {
+  background-color: #0f0;
 }

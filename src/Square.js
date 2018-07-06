@@ -1,5 +1,5 @@
 import React from 'react';
 
-const Square = () => <div className="game-square" />;
+const Square = props => <div className={`game-square ${props.occupiedBy}-tile`} />;
 
 export default Square;
