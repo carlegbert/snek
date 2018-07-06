@@ -8,11 +8,15 @@ import './index.css';
 class App extends Component {
   constructor() {
     super();
+    const board = new Array(BOARD_SIZE)
+      .fill(null)
+      .map(() => new Array(BOARD_SIZE).fill(null));
     this.state = {
       boardSize: BOARD_SIZE,
       started: false,
       score: 0,
-    }
+      board,
+    };
   }
 
   handleKeyDown(e) {
@@ -41,7 +45,10 @@ class App extends Component {
           started={this.state.started}
           score={this.state.score}
         />
-        <GameBoard boardSize={BOARD_SIZE} />
+        <GameBoard
+          boardSize={this.state.boardSize}
+          board={this.state.board}
+        />
       </div>
     );
   }

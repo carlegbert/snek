@@ -1,16 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class Row extends Component {
-  constructor({ xCoord, boardSize }) {
-    super();
-    this.xCoord = xCoord;
-    this.boardSize = boardSize;
-  }
+const Square = () => <div className="game-square" />;
 
-  render() {
-    return (
-      <div className="game-square">
-      </div>
-    )
-  }
-}
+export default Square;

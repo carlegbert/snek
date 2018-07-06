@@ -1,27 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Row from './Row';
 
-export default class GameBoard extends Component {
-  constructor({ boardSize }) {
-    super();
-    this.boardSize = boardSize;
-  }
+const mapBoardToRows = board => board.map(
+  (row, i) => <Row row={row} key={i} />
+);
 
-  renderRows() {
-    const rows = [];
-    for (let i = 0; i < this.boardSize; i++) {
-      rows.push(<Row yCoord={i} key={i} boardSize={this.boardSize} />);
-    };
-    return rows;
-  }
+const GameBoard = props => (
+  <div className="board-wrapper">
+    <div className="game-board">
+      {mapBoardToRows(props.board)}
+    </div>
+  </div>
+);
 
-  render() {
-    return (
-      <div className="board-wrapper">
-        <div className="game-board">
-          {this.renderRows()}
-        </div>
-      </div>
-    )
-  }
-}
+export default GameBoard;
