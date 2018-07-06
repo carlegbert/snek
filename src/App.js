@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import GameBoard from './GameBoard';
 import GameHeader from './GameHeader';
-import { BOARD_SIZE, DIRECTIONS, EMPTY, FOOD, KEYS, SNAKE } from './constants';
+import {
+  BOARD_SIZE,
+  DIRECTIONS,
+  EMPTY,
+  FOOD,
+  KEYS,
+  SNAKE,
+} from './constants';
 import {
   createBoard,
   directionsAreOpposite,
   getRandomDirection,
   getRandomEmptyLocation,
-  movePoint
+  movePoint,
+  calculateSpeed,
 } from './util';
 
 import './index.css';
@@ -18,12 +26,13 @@ class App extends Component {
     this.state = {
       boardSize: BOARD_SIZE,
       started: false,
-      score: 0,
+      score: null,
+      speed: null,
       board: null,
       direction: null,
-      newDirection: null,
       snake: null,
     };
+    this.newDirection = null;
   }
 
   handleKeyDown(e) {
@@ -69,32 +78,37 @@ class App extends Component {
     board[center][center] = SNAKE;
     const food = getRandomEmptyLocation(board);
     board[food.y][food.x] = FOOD;
+    const score = 0;
+    const speed = calculateSpeed(score);
 
     this.setState({
       board,
+      speed,
       started: true,
       direction: getRandomDirection(),
-      snakeSpeed: 100,
       snake: [{x: center, y: center}],
     });
-    this.startSnake();
+    this.updateClock(speed);
   }
 
-  startSnake() {
+  updateClock(speed) {
+    clearInterval(this.intervalHandle);
     setTimeout(() => {
-      this.intervalHandle = setInterval(this.moveSnake.bind(this), this.state.snakeSpeed);
-    }, this.state.snakeSpeed);
+      this.intervalHandle = setInterval(this.moveSnake.bind(this), speed);
+    }, speed);
   }
 
   moveSnake() {
     const snake = this.state.snake.slice();
     const board = this.state.board.map(row => row.map(square => square));
-    const direction = this.state.newDirection || this.state.direction;
+    const direction = this.newDirection || this.state.direction;
     const newState = { snake, board, direction, newDirection: null };
     const newSnakeHead = movePoint(snake[0], direction);
 
     if (board[newSnakeHead.y][newSnakeHead.x] === FOOD) {
       newState.score = this.state.score + 1;
+      newState.speed = calculateSpeed(newState.score);
+      this.updateClock(newState.speed);
       const food = getRandomEmptyLocation(board);
       board[food.y][food.x] = FOOD;
     } else {
@@ -109,7 +123,7 @@ class App extends Component {
   changeSnakeDirection(newDirection) {
     if (this.state.direction === newDirection || directionsAreOpposite(this.state.direction, newDirection))
       return;
-    this.setState({ newDirection });
+    this.newDirection = newDirection;
   }
 
   render() {

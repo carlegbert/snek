@@ -1,4 +1,8 @@
 export const BOARD_SIZE = 25;
+export const TOP_SPEED = 35;
+export const SPEED_SEED = 200;
+export const SPEED_DENOM = .2;
+
 export const KEYS = {
   SPACE: 32,
   H: 72,

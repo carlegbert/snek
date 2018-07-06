@@ -1,4 +1,10 @@
-const { DIRECTIONS, EMPTY } = require('./constants');
+const {
+  DIRECTIONS,
+  EMPTY,
+  SPEED_DENOM,
+  SPEED_SEED,
+  TOP_SPEED,
+} = require('./constants');
 
 export const createBoard = boardSize => {
   const board = new Array(boardSize)
@@ -57,3 +63,9 @@ export const getRandomEmptyLocation = board => {
   const y = sq.idx;
   return { x, y };
 }
+
+export const calculateSpeed = score =>
+  Math.max(
+    TOP_SPEED,
+    SPEED_SEED / (score * SPEED_DENOM + 1),
+  );
