@@ -1,19 +1,46 @@
 import React, { Component } from 'react';
 import GameBoard from './GameBoard';
-import { BOARD_SIZE } from './constants';
+import GameHeader from './GameHeader';
+import { BOARD_SIZE, KEYS } from './constants';
+
 import './index.css';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      boardSize: BOARD_SIZE,
+      started: false,
+      score: 0,
+    }
+  }
+
+  handleKeyDown(e) {
+    switch (e.which) {
+      case KEYS.SPACE:
+        e.preventDefault();
+        this.startGame();
+        break;
+      default:
+        break;
+    }
+  }
+
+  startGame() {
+    this.setState({ started: true });
+  }
+
   render() {
     return (
-      <div className="app">
-        <header className="header">
-          <h1 className="title">
-            <span role="img" aria-label="snake">
-              🐍
-            </span>
-          </h1>
-        </header>
+      <div
+        className="app"
+        onKeyDown={this.handleKeyDown.bind(this)}
+        tabIndex="0"
+      >
+        <GameHeader
+          started={this.state.started}
+          score={this.state.score}
+        />
         <GameBoard boardSize={BOARD_SIZE} />
       </div>
     );
