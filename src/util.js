@@ -42,8 +42,8 @@ export const getRandomEmptyLocation = (board) => {
   const emptySquares = board
     .reduce((acc, row, y) => [
       ...acc,
-      ...row.filter(sq => sq === TILE_TYPES.EMPTY)
-        .map((_, x) => ({ x, y })),
+      ...row.map((occupiedBy, x) => ({ x, y, occupiedBy }))
+        .filter(sq => sq.occupiedBy === TILE_TYPES.EMPTY),
     ], []);
   if (emptySquares.length === 0) return null;
   const randNum = Math.floor(Math.random() * emptySquares.length);

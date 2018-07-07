@@ -116,11 +116,8 @@ class App extends Component {
       board[newSnakeHead.y][newSnakeHead.x] = TILE_TYPES.SNAKE;
 
       const food = getRandomEmptyLocation(board);
-      if (food) {
-        board[food.y][food.x] = TILE_TYPES.FOOD;
-      } else {
-        newState.gameMode = GAME_MODES.WON;
-      }
+      if (food) board[food.y][food.x] = TILE_TYPES.FOOD;
+      else newState.gameMode = GAME_MODES.WON;
     } else {
       const oldSnakeTail = this.snake.pop();
       board[oldSnakeTail.y][oldSnakeTail.x] = TILE_TYPES.EMPTY;

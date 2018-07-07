@@ -9,7 +9,7 @@ const getContent = (gameMode, score) => {
     case GAME_MODES.STARTED:
       return `use the arrow keys to move | score: ${score}`;
     case GAME_MODES.GAME_OVER:
-      return `game over! press space to play again | final score: ${score}`;
+      return `game over! press space | final score: ${score}`;
     case GAME_MODES.WON:
       return `you won!!! | final score: ${score}`;
     default:
