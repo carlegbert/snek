@@ -39,14 +39,20 @@ class App extends Component {
     this.newDirection = null;
   }
 
+  componentDidMount() {
+    /* eslint-env browser */
+    document.addEventListener('keydown', this.handleKeyDown.bind(this));
+  }
+
   handleKeyDown(e) {
+    if (!Object.values(KEYS).includes(e.which)) return;
+    e.preventDefault();
     if (this.state.gameMode === GAME_MODES.STARTED) this.handleGameStartedKeyDown(e);
     else this.handleGameStoppedKeyDown(e);
   }
 
   handleGameStoppedKeyDown(e) {
     if (e.which === KEYS.SPACE) {
-      e.preventDefault();
       this.startGame();
     }
   }
@@ -55,22 +61,18 @@ class App extends Component {
     switch (e.which) {
       case KEYS.UP:
       case KEYS.K:
-        e.preventDefault();
         this.changeSnakeDirection(DIRECTIONS.UP);
         break;
       case KEYS.DOWN:
       case KEYS.J:
-        e.preventDefault();
         this.changeSnakeDirection(DIRECTIONS.DOWN);
         break;
       case KEYS.LEFT:
       case KEYS.H:
-        e.preventDefault();
         this.changeSnakeDirection(DIRECTIONS.LEFT);
         break;
       case KEYS.RIGHT:
       case KEYS.L:
-        e.preventDefault();
         this.changeSnakeDirection(DIRECTIONS.RIGHT);
         break;
       default:
@@ -144,12 +146,7 @@ class App extends Component {
 
   render() {
     return (
-      <div
-        className="app"
-        onKeyDown={this.handleKeyDown.bind(this)}
-        tabIndex="0"
-        role="Main"
-      >
+      <div className="app">
         <GameHeader
           gameMode={this.state.gameMode}
           score={this.state.score}
