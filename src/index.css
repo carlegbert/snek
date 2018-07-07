@@ -1,6 +1,7 @@
 body {
   background-color: #bfb;
   color: #004e11;
+  font-family: 'Inconsolata', monospace;
 }
 
 .title {
@@ -37,7 +38,7 @@ body {
 }
 
 .snake-tile {
-  background-color: #0f0;
+  background-color: #004e11;
 }
 
 .food-tile {

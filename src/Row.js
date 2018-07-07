@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Square from './Square';
 
-const mapRowToSquares = row => row.map(
-  (x, i) => <Square key={i} occupiedBy={x} />
-);
+const mapRowToSquares = row => row.map((x, i) => <Square key={i} occupiedBy={x} />);
 
 const Row = ({ row }) => (
   <div className="game-row">
@@ -13,7 +11,7 @@ const Row = ({ row }) => (
 );
 
 Row.propTypes = {
-  row: PropTypes.array.isRequired,
+  row: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Row;

@@ -2,7 +2,7 @@ export const BOARD_SIZE = 25;
 export const EMPTY = 'empty';
 export const FOOD = 'food';
 export const SNAKE = 'snake';
-export const SPEED_SEED = 1000;
+export const SPEED_SEED = 500;
 export const TOP_SPEED = 35;
 
 export const DIRECTIONS = {

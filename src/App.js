@@ -38,10 +38,8 @@ class App extends Component {
   }
 
   handleKeyDown(e) {
-    if (this.state.gameMode === GAME_MODES.STARTED)
-      this.handleGameStartedKeyDown(e);
-    else
-      this.handleGameStoppedKeyDown(e);
+    if (this.state.gameMode === GAME_MODES.STARTED) this.handleGameStartedKeyDown(e);
+    else this.handleGameStoppedKeyDown(e);
   }
 
   handleGameStoppedKeyDown(e) {
@@ -86,7 +84,7 @@ class App extends Component {
     board[food.y][food.x] = FOOD;
     const score = 0;
     this.speed = calculateSpeed(score);
-    this.snake = [{x: center, y: center}];
+    this.snake = [{ x: center, y: center }];
     this.direction = getRandomDirection();
 
     this.setState({
@@ -137,8 +135,8 @@ class App extends Component {
   }
 
   changeSnakeDirection(newDirection) {
-    if (this.direction === newDirection || directionsAreOpposite(this.direction, newDirection))
-      return;
+    if (this.direction === newDirection
+      || directionsAreOpposite(this.direction, newDirection)) return;
     this.newDirection = newDirection;
   }
 
@@ -148,6 +146,7 @@ class App extends Component {
         className="app"
         onKeyDown={this.handleKeyDown.bind(this)}
         tabIndex="0"
+        role="Main"
       >
         <GameHeader
           gameMode={this.state.gameMode}

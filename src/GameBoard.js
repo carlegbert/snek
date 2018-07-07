@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Row from './Row';
 
-const mapBoardToRows = board => board.map(
-  (row, i) => <Row row={row} key={i} />
-);
+const mapBoardToRows = board => board.map((row, i) => <Row row={row} key={i} />);
 
 const GameBoard = ({ board }) => (
   <div className="board-wrapper">
@@ -15,7 +13,11 @@ const GameBoard = ({ board }) => (
 );
 
 GameBoard.propTypes = {
-  board: PropTypes.array,
+  board: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
+};
+
+GameBoard.defaultProps = {
+  board: undefined,
 };
 
 export default GameBoard;
