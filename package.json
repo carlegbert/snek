@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/carlegbert/snek/issues"
   },
-  "homepage": "https://github.com/carlegbert/snek#readme",
+  "homepage": "https://snek.carlegbert.com",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

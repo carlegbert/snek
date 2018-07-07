@@ -1,3 +1,5 @@
 # snek 🐍
 
-Browser version of snake game, using react.
+https://snek.carlegbert.com
+
+Simple implementation of the snake game. I wrote this for the purpose of starting to learn react.

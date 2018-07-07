@@ -31,7 +31,7 @@ body {
   background-color: #fff;
 }
 
-.board-wrapper {
+#root {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,4 +43,13 @@ body {
 
 .food-tile {
   background-color: #f00;
+}
+
+.footer {
+  font-size: 30px;
+  width: 85vmin;
+  height: 85vmin;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
 }

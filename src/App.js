@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Footer from './Footer';
+
 import GameBoard from './GameBoard';
 import GameHeader from './GameHeader';
 import {
@@ -120,7 +122,7 @@ class App extends Component {
       if (food) {
         board[food.y][food.x] = FOOD;
         this.speed = calculateSpeed(newState.score);
-        this.updateClock(newState.speed);
+        this.updateClock();
       } else {
         newState.gameMode = GAME_MODES.WON;
         clearInterval(this.intervalHandle);
@@ -156,6 +158,7 @@ class App extends Component {
           boardSize={this.state.boardSize}
           board={this.state.board}
         />
+        <Footer />
       </div>
     );
   }

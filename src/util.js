@@ -7,15 +7,11 @@ const {
   TOP_SPEED,
 } = require('./constants');
 
-export const createBoard = (boardSize) => {
-  const board = new Array(boardSize)
+export const createBoard = boardSize => new Array(boardSize)
+  .fill(null)
+  .map(() => new Array(boardSize)
     .fill(null)
-    .map(() => new Array(boardSize)
-      .fill(null)
-      .map(() => EMPTY));
-
-  return board;
-};
+    .map(() => EMPTY));
 
 export const movePoint = (point, direction) => {
   switch (direction) {
