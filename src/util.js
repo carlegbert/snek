@@ -44,24 +44,15 @@ export const directionsAreOpposite = (directionOne, directionTwo) => (
     || (directionOne === DIRECTIONS.RIGHT && directionTwo === DIRECTIONS.LEFT));
 
 export const getRandomEmptyLocation = (board) => {
-  // TODO: make this have an equal chance of returning any
-  // square on the board.
-  const nonFullRows = board
-    .map((content, idx) => ({ content, idx }))
-    .filter(x => x.content.some(y => y === EMPTY));
-  if (nonFullRows.length === 0) return null;
-  const randY = Math.floor(Math.random() * nonFullRows.length);
-  const row = nonFullRows[randY];
-
-  const nonFullSquares = row.content
-    .map((content, idx) => ({ content, idx }))
-    .filter(x => x.content === EMPTY);
-  const randX = Math.floor(Math.random() * nonFullSquares.length);
-  const sq = nonFullSquares[randX];
-
-  const y = row.idx;
-  const x = sq.idx;
-  return { x, y };
+  const emptySquares = board
+    .reduce((acc, row, y) => [
+      ...acc,
+      ...row.filter(sq => sq === EMPTY)
+        .map((_, x) => ({ x, y })),
+    ], []);
+  if (emptySquares.length === 0) return null;
+  const randNum = Math.floor(Math.random() * emptySquares.length);
+  return emptySquares[randNum];
 };
 
 export const calculateSpeed = score => Math.max(
