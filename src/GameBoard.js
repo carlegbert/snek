@@ -1,16 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Row from './Row';
 
 const mapBoardToRows = board => board.map(
   (row, i) => <Row row={row} key={i} />
 );
 
-const GameBoard = props => (
+const GameBoard = ({ board }) => (
   <div className="board-wrapper">
     <div className="game-board">
-      {props.board && mapBoardToRows(props.board)}
+      {board && mapBoardToRows(board)}
     </div>
   </div>
 );
+
+GameBoard.propTypes = {
+  board: PropTypes.array,
+};
 
 export default GameBoard;

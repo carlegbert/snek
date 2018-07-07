@@ -55,18 +55,22 @@ class App extends Component {
     switch (e.which) {
       case KEYS.UP:
       case KEYS.K:
+        e.preventDefault();
         this.changeSnakeDirection(DIRECTIONS.UP);
         break;
       case KEYS.DOWN:
       case KEYS.J:
+        e.preventDefault();
         this.changeSnakeDirection(DIRECTIONS.DOWN);
         break;
       case KEYS.LEFT:
       case KEYS.H:
+        e.preventDefault();
         this.changeSnakeDirection(DIRECTIONS.LEFT);
         break;
       case KEYS.RIGHT:
       case KEYS.L:
+        e.preventDefault();
         this.changeSnakeDirection(DIRECTIONS.RIGHT);
         break;
       default:

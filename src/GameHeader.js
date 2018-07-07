@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { GAME_MODES } from './constants';
 
 const getContent = (gameMode, score) => {
@@ -25,6 +26,11 @@ const GameHeader = ({ gameMode, score }) => {
       </h1>
     </header>
   );
+};
+
+GameHeader.propTypes = {
+  gameMode: PropTypes.string.isRequired,
+  score: PropTypes.number,
 };
 
 export default GameHeader;
