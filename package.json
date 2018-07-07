@@ -26,6 +26,7 @@
   "homepage": "https://snek.carlegbert.com",
   "scripts": {
     "build": "parcel build public/index.html",
+    "lint": "eslint src/",
     "start": "parcel public/index.html"
   },
   "devDependencies": {

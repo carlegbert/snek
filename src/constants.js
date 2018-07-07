@@ -1,7 +1,4 @@
 export const BOARD_SIZE = 25;
-export const EMPTY = 'empty';
-export const FOOD = 'food';
-export const SNAKE = 'snake';
 export const SPEED_SEED = 500;
 export const TOP_SPEED = 35;
 
@@ -29,4 +26,10 @@ export const KEYS = {
   UP: 38,
   RIGHT: 39,
   DOWN: 40,
+};
+
+export const TILE_TYPES = {
+  EMPTY: 'empty',
+  FOOD: 'food',
+  SNAKE: 'snake',
 };

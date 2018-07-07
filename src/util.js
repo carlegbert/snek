@@ -1,9 +1,8 @@
 const {
   BOARD_SIZE,
   DIRECTIONS,
-  EMPTY,
-  FOOD,
   SPEED_SEED,
+  TILE_TYPES,
   TOP_SPEED,
 } = require('./constants');
 
@@ -11,7 +10,7 @@ export const createBoard = boardSize => new Array(boardSize)
   .fill(null)
   .map(() => new Array(boardSize)
     .fill(null)
-    .map(() => EMPTY));
+    .map(() => TILE_TYPES.EMPTY));
 
 export const movePoint = (point, direction) => {
   switch (direction) {
@@ -43,7 +42,7 @@ export const getRandomEmptyLocation = (board) => {
   const emptySquares = board
     .reduce((acc, row, y) => [
       ...acc,
-      ...row.filter(sq => sq === EMPTY)
+      ...row.filter(sq => sq === TILE_TYPES.EMPTY)
         .map((_, x) => ({ x, y })),
     ], []);
   if (emptySquares.length === 0) return null;
@@ -60,5 +59,5 @@ export const newSpaceIsValid = (newSnakeHead, board) => {
   const { x, y } = newSnakeHead;
   if (y === -1 || y === BOARD_SIZE || x === -1 || x === BOARD_SIZE) return false;
   const point = board[y][x];
-  return (point === EMPTY || point === FOOD);
+  return (point === TILE_TYPES.EMPTY || point === TILE_TYPES.FOOD);
 };

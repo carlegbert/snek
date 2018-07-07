@@ -6,11 +6,9 @@ import GameHeader from './GameHeader';
 import {
   BOARD_SIZE,
   DIRECTIONS,
-  EMPTY,
-  FOOD,
   GAME_MODES,
   KEYS,
-  SNAKE,
+  TILE_TYPES,
 } from './constants';
 import {
   calculateSpeed,
@@ -21,8 +19,6 @@ import {
   movePoint,
   newSpaceIsValid,
 } from './util';
-
-import './index.css';
 
 class App extends Component {
   constructor() {
@@ -83,9 +79,9 @@ class App extends Component {
   startGame() {
     const center = Math.floor(this.state.boardSize / 2);
     const board = createBoard(BOARD_SIZE);
-    board[center][center] = SNAKE;
+    board[center][center] = TILE_TYPES.SNAKE;
     const food = getRandomEmptyLocation(board);
-    board[food.y][food.x] = FOOD;
+    board[food.y][food.x] = TILE_TYPES.FOOD;
     const score = 0;
     this.speed = calculateSpeed(score);
     this.snake = [{ x: center, y: center }];
@@ -113,14 +109,14 @@ class App extends Component {
 
     if (!newSpaceIsValid(newSnakeHead, board)) {
       newState.gameMode = GAME_MODES.GAME_OVER;
-    } else if (board[newSnakeHead.y][newSnakeHead.x] === FOOD) {
+    } else if (board[newSnakeHead.y][newSnakeHead.x] === TILE_TYPES.FOOD) {
       newState.score = this.state.score + 1;
       this.snake.splice(0, 0, newSnakeHead);
-      board[newSnakeHead.y][newSnakeHead.x] = SNAKE;
+      board[newSnakeHead.y][newSnakeHead.x] = TILE_TYPES.SNAKE;
 
       const food = getRandomEmptyLocation(board);
       if (food) {
-        board[food.y][food.x] = FOOD;
+        board[food.y][food.x] = TILE_TYPES.FOOD;
         this.speed = calculateSpeed(newState.score);
       } else {
         newState.gameMode = GAME_MODES.WON;
@@ -128,9 +124,9 @@ class App extends Component {
       }
     } else {
       const oldSnakeTail = this.snake.pop();
-      board[oldSnakeTail.y][oldSnakeTail.x] = EMPTY;
+      board[oldSnakeTail.y][oldSnakeTail.x] = TILE_TYPES.EMPTY;
       this.snake.splice(0, 0, newSnakeHead);
-      board[newSnakeHead.y][newSnakeHead.x] = SNAKE;
+      board[newSnakeHead.y][newSnakeHead.x] = TILE_TYPES.SNAKE;
     }
     if (newState.gameMode === GAME_MODES.STARTED) {
       this.updateClock();
