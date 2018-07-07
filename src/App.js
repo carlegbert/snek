@@ -29,7 +29,6 @@ class App extends Component {
       score: null,
       board: null,
     };
-    this.speed = null;
     this.direction = null;
     this.snake = null;
     this.newDirection = null;
@@ -38,6 +37,10 @@ class App extends Component {
   componentDidMount() {
     /* eslint-env browser */
     document.addEventListener('keydown', this.handleKeyDown.bind(this));
+  }
+
+  componentDidUpdate() {
+    if (this.state.gameMode === GAME_MODES.STARTED) this.queueSnakeMove();
   }
 
   handleKeyDown(e) {
@@ -83,7 +86,6 @@ class App extends Component {
     const food = getRandomEmptyLocation(board);
     board[food.y][food.x] = TILE_TYPES.FOOD;
     const score = 0;
-    this.speed = calculateSpeed(score);
     this.snake = [{ x: center, y: center }];
     this.direction = getRandomDirection();
 
@@ -92,15 +94,14 @@ class App extends Component {
       board,
       gameMode: GAME_MODES.STARTED,
     });
-    this.updateClock();
   }
 
-  updateClock() {
-    this.intervalHandle = setInterval(this.moveSnake.bind(this), this.speed);
+  queueSnakeMove() {
+    const speed = calculateSpeed(this.state.score);
+    setTimeout(this.moveSnake.bind(this), speed);
   }
 
   moveSnake() {
-    clearInterval(this.intervalHandle);
     const board = this.state.board.map(row => row.map(square => square));
     this.direction = this.newDirection || this.direction;
     this.newDirection = null;
@@ -117,10 +118,8 @@ class App extends Component {
       const food = getRandomEmptyLocation(board);
       if (food) {
         board[food.y][food.x] = TILE_TYPES.FOOD;
-        this.speed = calculateSpeed(newState.score);
       } else {
         newState.gameMode = GAME_MODES.WON;
-        clearInterval(this.intervalHandle);
       }
     } else {
       const oldSnakeTail = this.snake.pop();
@@ -128,16 +127,11 @@ class App extends Component {
       this.snake.splice(0, 0, newSnakeHead);
       board[newSnakeHead.y][newSnakeHead.x] = TILE_TYPES.SNAKE;
     }
-    if (newState.gameMode === GAME_MODES.STARTED) {
-      this.updateClock();
-    }
     this.setState(newState);
   }
 
   changeSnakeDirection(newDirection) {
-    if (this.direction === newDirection
-      || directionsAreOpposite(this.direction, newDirection)) return;
-    this.newDirection = newDirection;
+    if (!directionsAreOpposite(this.direction, newDirection)) this.newDirection = newDirection;
   }
 
   render() {
