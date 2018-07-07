@@ -100,13 +100,11 @@ class App extends Component {
   }
 
   updateClock() {
-    clearInterval(this.intervalHandle);
-    setTimeout(() => {
-      this.intervalHandle = setInterval(this.moveSnake.bind(this), this.speed);
-    }, this.speed);
+    this.intervalHandle = setInterval(this.moveSnake.bind(this), this.speed);
   }
 
   moveSnake() {
+    clearInterval(this.intervalHandle);
     const board = this.state.board.map(row => row.map(square => square));
     this.direction = this.newDirection || this.direction;
     this.newDirection = null;
@@ -124,7 +122,6 @@ class App extends Component {
       if (food) {
         board[food.y][food.x] = FOOD;
         this.speed = calculateSpeed(newState.score);
-        this.updateClock();
       } else {
         newState.gameMode = GAME_MODES.WON;
         clearInterval(this.intervalHandle);
@@ -134,6 +131,9 @@ class App extends Component {
       board[oldSnakeTail.y][oldSnakeTail.x] = EMPTY;
       this.snake.splice(0, 0, newSnakeHead);
       board[newSnakeHead.y][newSnakeHead.x] = SNAKE;
+    }
+    if (newState.gameMode === GAME_MODES.STARTED) {
+      this.updateClock();
     }
     this.setState(newState);
   }
