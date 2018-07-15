@@ -40,13 +40,15 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.gameMode === GAME_MODES.STARTED) this.queueSnakeMove();
+    const { gameMode } = this.state;
+    if (gameMode === GAME_MODES.STARTED) this.queueSnakeMove();
   }
 
   handleKeyDown(e) {
+    const { gameMode } = this.state;
     if (!Object.values(KEYS).includes(e.which)) return;
     e.preventDefault();
-    if (this.state.gameMode === GAME_MODES.STARTED) this.handleGameStartedKeyDown(e);
+    if (gameMode === GAME_MODES.STARTED) this.handleGameStartedKeyDown(e);
     else this.handleGameStoppedKeyDown(e);
   }
 
@@ -80,7 +82,8 @@ class App extends Component {
   }
 
   startGame() {
-    const center = Math.floor(this.state.boardSize / 2);
+    const { boardSize } = this.state;
+    const center = Math.floor(boardSize / 2);
     const board = createBoard(BOARD_SIZE);
     board[center][center] = TILE_TYPES.SNAKE;
     const food = getRandomEmptyLocation(board);
@@ -97,12 +100,15 @@ class App extends Component {
   }
 
   queueSnakeMove() {
-    const speed = calculateSpeed(this.state.score);
+    const { score } = this.state;
+    const speed = calculateSpeed(score);
     setTimeout(this.moveSnake.bind(this), speed);
   }
 
   moveSnake() {
-    const board = this.state.board.map(row => row.map(square => square));
+    let { board } = this.state;
+    const { score } = this.state;
+    board = board.map(row => row.slice());
     this.direction = this.newDirection || this.direction;
     this.newDirection = null;
     const newState = { board };
@@ -111,7 +117,7 @@ class App extends Component {
     if (!newSpaceIsValid(newSnakeHead, board)) {
       newState.gameMode = GAME_MODES.GAME_OVER;
     } else if (board[newSnakeHead.y][newSnakeHead.x] === TILE_TYPES.FOOD) {
-      newState.score = this.state.score + 1;
+      newState.score = score + 1;
       this.snake.splice(0, 0, newSnakeHead);
       board[newSnakeHead.y][newSnakeHead.x] = TILE_TYPES.SNAKE;
 
@@ -132,15 +138,21 @@ class App extends Component {
   }
 
   render() {
+    const {
+      board,
+      boardSize,
+      gameMode,
+      score,
+    } = this.state;
     return (
       <div className="app">
         <GameHeader
-          gameMode={this.state.gameMode}
-          score={this.state.score}
+          gameMode={gameMode}
+          score={score}
         />
         <GameBoard
-          boardSize={this.state.boardSize}
-          board={this.state.board}
+          boardSize={boardSize}
+          board={board}
         />
         <Footer />
       </div>
