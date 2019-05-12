@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- '10'
+script: npm run build
+deploy:
+  provider: gcs
+  access_key_id: "$GOOG_ACCESS_KEY"
+  secret_access_key: "$GOOG_SECRET"
+  bucket: "$GOOG_BUCKET"
+  local-dir: dist
+  acl: public-read
+  on:
+    repo: carlegbert/snek

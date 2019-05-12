@@ -25,9 +25,9 @@
   },
   "homepage": "https://snek.carlegbert.com",
   "scripts": {
-    "build": "parcel build public/index.html",
+    "build": "parcel build public/snek.html",
     "lint": "eslint src/",
-    "start": "parcel public/index.html"
+    "start": "parcel public/snek.html"
   },
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
