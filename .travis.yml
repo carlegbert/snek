@@ -4,10 +4,12 @@ node_js:
 script: npm run build
 deploy:
   provider: gcs
+  skip_cleanup: true
   access_key_id: "$GOOG_ACCESS_KEY"
   secret_access_key: "$GOOG_SECRET"
   bucket: "$GOOG_BUCKET"
   local-dir: dist
   acl: public-read
+  cache_control: "max-age=864000"
   on:
     repo: carlegbert/snek
