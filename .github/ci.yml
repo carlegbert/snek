@@ -1,0 +1,40 @@
+name: Build/Test/Deploy
+on: [push]
+
+jobs:
+  ci:
+    name: ci
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: cache
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: install
+        id: install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: lint
+        id: lint
+        run: npm run lint
+      - name: build
+        id: build
+        run: npm run build
+      - name: deploy
+        id: deploy
+        if: github.ref == 'refs/heads/master'
+        uses: carlegbert/github-actions-rsync@v2.0.0
+        with:
+          RSYNC_TARGET: ${{ secrets.DEST_DIR }}
+          RSYNC_SOURCE: dist/
+          RSYNC_OPTIONS: -avzr --delete
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          SSH_USERNAME: ${{ secrets.SSH_USER }}
+          SSH_HOSTNAME: ${{ secrets.HOST }}
