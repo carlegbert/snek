@@ -30,14 +30,14 @@
     "start": "parcel public/snek.html"
   },
   "devDependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "eslint": "^5.0.1",
-    "eslint-config-airbnb": "^17.0.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jsx-a11y": "^6.1.0",
-    "eslint-plugin-react": "^7.10.0",
-    "parcel-bundler": "1.9.6"
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-env": "1.7.0",
+    "babel-preset-react": "6.24.1",
+    "eslint": "5.0.1",
+    "eslint-config-airbnb": "17.0.0",
+    "eslint-plugin-import": "2.13.0",
+    "eslint-plugin-jsx-a11y": "6.1.0",
+    "eslint-plugin-react": "7.10.0",
+    "parcel-bundler": "1.12.4"
   }
 }
