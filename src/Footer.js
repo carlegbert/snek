@@ -1,14 +1,10 @@
-import React from 'react';
+import React from "react";
 
 const Footer = () => (
   <footer className="footer">
-    <a href="https://carlegbert.com">
-      carlegbert.com
-    </a>
+    <a href="https://egbc.io">egbc.io</a>
     &nbsp; // &nbsp;
-    <a href="https://github.com/carlegbert/snek">
-      source code
-    </a>
+    <a href="https://github.com/carlegbert/snek">source code</a>
   </footer>
 );
 
