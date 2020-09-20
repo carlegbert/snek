@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const Footer = () => (
   <footer className="footer">
@@ -6,6 +6,6 @@ const Footer = () => (
     &nbsp; // &nbsp;
     <a href="https://github.com/carlegbert/snek">source code</a>
   </footer>
-);
+)
 
-export default Footer;
+export default Footer
