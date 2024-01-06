@@ -1,6 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 
-const Footer = () => (
+const Footer: React.FC = () => (
   <footer className="footer">
     <a href="https://egbc.io">egbc.io</a>
     &nbsp; // &nbsp;
