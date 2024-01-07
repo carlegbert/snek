@@ -7,14 +7,14 @@ export const DIRECTIONS = {
   DOWN: 'DOWN',
   LEFT: 'LEFT',
   RIGHT: 'RIGHT',
-}
+} as const
 
 export const GAME_MODES = {
   GAME_OVER: 'GAME_OVER',
   PLAYING: 'PLAYING',
   UNSTARTED: 'UNSTARTED',
   WON: 'WON',
-}
+} as const
 
 export const KEYS = {
   SPACE: 32,
@@ -26,10 +26,10 @@ export const KEYS = {
   UP: 38,
   RIGHT: 39,
   DOWN: 40,
-}
+} as const
 
 export const TILE_TYPES = {
   EMPTY: 'empty',
   FOOD: 'food',
   SNAKE: 'snake',
-}
+} as const
