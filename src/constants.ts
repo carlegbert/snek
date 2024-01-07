@@ -11,7 +11,7 @@ export const DIRECTIONS = {
 
 export const GAME_MODES = {
   GAME_OVER: 'GAME_OVER',
-  PLAYING: 'PLAYING',
+  STARTED: 'STARTED',
   UNSTARTED: 'UNSTARTED',
   WON: 'WON',
 } as const

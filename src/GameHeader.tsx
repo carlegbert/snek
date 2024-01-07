@@ -1,8 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import { GAME_MODES } from './constants'
+import { GameMode } from './types'
 
-const getContent = (gameMode, score) => {
+type Props = {
+  gameMode: GameMode
+  score: number
+}
+
+const getContent = (gameMode: GameMode, score: number): string => {
   switch (gameMode) {
     case GAME_MODES.UNSTARTED:
       return 'press space to start'
@@ -17,19 +22,10 @@ const getContent = (gameMode, score) => {
   }
 }
 
-const GameHeader = ({ gameMode, score }) => (
+const GameHeader: React.FC<Props> = ({ gameMode, score }) => (
   <header className="header">
     <h1 className="title">{getContent(gameMode, score)}</h1>
   </header>
 )
-
-GameHeader.propTypes = {
-  gameMode: PropTypes.string.isRequired,
-  score: PropTypes.number,
-}
-
-GameHeader.defaultProps = {
-  score: undefined,
-}
 
 export default GameHeader
